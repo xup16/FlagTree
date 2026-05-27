@@ -89,8 +89,8 @@ public:
   explicit TleLLVMConversionTarget(MLIRContext &ctx,
                                    LLVMTypeConverter &typeConverter)
       : ConversionTarget(ctx) {
-    addLegalDialect<arith::ArithDialect, LLVM::LLVMDialect,
-                    ROCDL::ROCDLDialect, mlir::scf::SCFDialect>();
+    addLegalDialect<arith::ArithDialect, LLVM::LLVMDialect, ROCDL::ROCDLDialect,
+                    mlir::scf::SCFDialect>();
     addIllegalDialect<triton::tle::TleDialect>();
     addLegalOp<mlir::UnrealizedConversionCastOp>();
     markUnknownOpDynamicallyLegal([](Operation *) -> bool { return true; });
@@ -209,7 +209,8 @@ struct ConvertTritonHCUGPUToLLVM
       mlir::triton::tle::populateInsertTileOpToLLVMPatterns(
           typeConverter, tlePatterns, targetInfo,
           patternBenefitPrioritizeOverLLVMConversions);
-      if (failed(applyPartialConversion(mod, tleTarget, std::move(tlePatterns))))
+      if (failed(
+              applyPartialConversion(mod, tleTarget, std::move(tlePatterns))))
         return signalPassFailure();
     }
 #endif

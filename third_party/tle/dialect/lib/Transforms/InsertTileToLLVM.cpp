@@ -216,8 +216,10 @@ lowerInsertTileViaSMEMDynamic(InsertTileOp op, InsertTileOp::Adaptor adaptor,
   }
 
   // Compute per-thread offsets for source and tile.
-  auto srcThreadOffsets = computeThreadOffsets(loc, rewriter, srcTy, targetInfo);
-  auto tileThreadOffsets = computeThreadOffsets(loc, rewriter, tileTy, targetInfo);
+  auto srcThreadOffsets =
+      computeThreadOffsets(loc, rewriter, srcTy, targetInfo);
+  auto tileThreadOffsets =
+      computeThreadOffsets(loc, rewriter, tileTy, targetInfo);
 
   auto smemPtrTy =
       LLVM::LLVMPointerType::get(ctx, targetInfo.getSharedAddressSpace());

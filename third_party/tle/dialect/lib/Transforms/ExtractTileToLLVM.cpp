@@ -168,8 +168,10 @@ lowerExtractTileViaSMEM(ExtractTileOp op, ExtractTileOp::Adaptor adaptor,
   }
 
   // Compute runtime per-thread offsets for src and dst layouts
-  auto srcThreadOffsets = computeThreadOffsets(loc, rewriter, srcTy, targetInfo);
-  auto dstThreadOffsets = computeThreadOffsets(loc, rewriter, dstTy, targetInfo);
+  auto srcThreadOffsets =
+      computeThreadOffsets(loc, rewriter, srcTy, targetInfo);
+  auto dstThreadOffsets =
+      computeThreadOffsets(loc, rewriter, dstTy, targetInfo);
 
   // ------------------------------------------------------------------
   // Step 1: Allocate SMEM buffer
