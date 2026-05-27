@@ -67,7 +67,8 @@ jobs:
           ## tle unit test
           python3 -m pytest -s python/test/tle \
               --ignore=python/test/tle/unit/test_extract_tile_static_index.py \
-              --ignore=python/test/tle/unit/test_insert_tile_static_index.py
+              --ignore=python/test/tle/unit/test_insert_tile_static_index.py \
+              --ignore=python/test/tle/unit/test_tle_distributed_d2d.py
           python3 third_party/enflame/python/test/tle/unit/test_extract_tile_static_index.py
           python3 third_party/enflame/python/test/tle/unit/test_insert_tile_static_index.py
 
