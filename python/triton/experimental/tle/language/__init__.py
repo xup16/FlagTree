@@ -33,7 +33,8 @@ from .distributed import (
     shard_id,
     sharding,
 )
-from .communication import (mem_pool, )
+from .communication import (
+    mem_pool, )
 
 __all__ = [
     "load",

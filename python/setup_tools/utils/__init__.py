@@ -13,7 +13,7 @@ flagtree_submodules = {
     tools.Module(name="flir", url="https://github.com/FlagTree/flir.git",
                  dst_path=os.path.join(flagtree_configs.flagtree_submodule_dir, "flir")),
     "flagcx":
-    tools.Module(name="flagcx", url="https://github.com/flagos-ai/FlagCX.git", 
+    tools.Module(name="flagcx", url="https://github.com/flagos-ai/FlagCX.git",
                  dst_path=os.path.join(flagtree_configs.flagtree_submodule_dir, "tle/third_party/flagcx")),
 }
 

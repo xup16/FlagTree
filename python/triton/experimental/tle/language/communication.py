@@ -40,31 +40,30 @@ void flagcx_free_plug(void* ptr, size_t size, int device, void* stream) {
 }
 """
 
-FLAGCX_INCLUDE_PATH = os.environ.get(
-    "FLAGCX_INCLUDE_PATH",
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "include"))
-)
+FLAGCX_INCLUDE_PATH = os.environ.get("FLAGCX_INCLUDE_PATH",
+                                     os.path.abspath(os.path.join(os.path.dirname(__file__), "include")))
+
 
 def get_flagcx_mem_pool():
-    libflagcx_dir =  str(Path.home() / ".flagtree" / "flagcx")
+    libflagcx_dir = str(Path.home() / ".flagtree" / "flagcx")
     """Compile and return a PyTorch MemPool that uses flagcxMemAlloc."""
     out_dir = tempfile.gettempdir()
     lib_name = "flagcx_allocator"
 
     load_inline(
-    name=lib_name,
-    cpp_sources=flagcx_allocator_source,
-    with_cuda=True,
-    extra_ldflags=[
-        f"-L{libflagcx_dir}",
-        f"-Wl,-rpath,{libflagcx_dir}",
-        "-lflagcx",
-    ],
-    verbose=True,
-    is_python_module=False,
-    build_directory=out_dir,
-    extra_include_paths=[FLAGCX_INCLUDE_PATH],
-)
+        name=lib_name,
+        cpp_sources=flagcx_allocator_source,
+        with_cuda=True,
+        extra_ldflags=[
+            f"-L{libflagcx_dir}",
+            f"-Wl,-rpath,{libflagcx_dir}",
+            "-lflagcx",
+        ],
+        verbose=True,
+        is_python_module=False,
+        build_directory=out_dir,
+        extra_include_paths=[FLAGCX_INCLUDE_PATH],
+    )
 
     allocator_wrapper = CUDAPluggableAllocator(
         f"{out_dir}/{lib_name}.so",
@@ -73,13 +72,9 @@ def get_flagcx_mem_pool():
     )
     return torch.cuda.MemPool(allocator_wrapper.allocator())
 
+
 def initialize_flagcx_communication():
-    dist.init_process_group(
-        backend="nccl",
-        init_method="tcp://127.0.0.1:28510",
-        world_size=1,
-        rank=0
-    )
+    dist.init_process_group(backend="nccl", init_method="tcp://127.0.0.1:28510", world_size=1, rank=0)
     rank = dist.get_rank()
     world_size = dist.get_world_size()
     local_rank = int(os.environ.get("LOCAL_RANK", rank))
@@ -169,13 +164,7 @@ def initialize_flagcx_communication():
     # dist.barrier()
 
 
-
 if enabled:
     # ...
     initialize_flagcx_communication()
     mem_pool = get_flagcx_mem_pool()
-
-
-
-
-    

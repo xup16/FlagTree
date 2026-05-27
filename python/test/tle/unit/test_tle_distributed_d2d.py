@@ -23,7 +23,7 @@ class TestDeviceToDevice:
         grid = 2
         tle.mem_pool
         with torch.cuda.use_mem_pool(tle.mem_pool):
-             torch.randn([1024, 1024], device="cuda", dtype=torch.float32)
+            torch.randn([1024, 1024], device="cuda", dtype=torch.float32)
         # y = torch.empty_like(x)
 
         # compiled = _remote_peer_d2d_kernel.warmup(
